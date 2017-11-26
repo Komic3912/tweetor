@@ -1,12 +1,18 @@
 from bs4 import BeautifulSoup
+import sys
 import requests
+
+args = sys.argv
+
+username_or_email = args[1]
+g_password = args[2]
 
 class TwitterLogging_in:
   def __init__(self):
     #user name
-    self.username = "komisho2510"
+    self.username = username_or_email
     #password
-    self.password = "komiyama"
+    self.password = g_password
 
   def login(self):
 
@@ -47,7 +53,7 @@ class TwitterLogging_in:
     payload['session[password]'] = self.password
     
     try:
-      login = session.post('https://twitter.com/sessions',headers=heeaders,data=payload,allowredirects=False)
+      login = session.post('https://twitter.com/sessions',headers=headers,data=payload,allow_redirects=False)
       if login.status_code == 302:
         print ("successfully logging in")
         print ("http status:{}".format(login.status_code))
